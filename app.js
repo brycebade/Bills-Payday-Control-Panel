@@ -8,8 +8,6 @@ const remainingAmnt = document.querySelector("#remaining")
 
 let paycheckAmount = 0
 
-let bills = []
-
 paycheckBtn.addEventListener("click", () => {
     const checkAmount = Number(paycheckInput.value)
     paycheckAmount = checkAmount
