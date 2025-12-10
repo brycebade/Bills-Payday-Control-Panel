@@ -11,24 +11,42 @@ let paycheckAmount = 0
 
 const renderBills = () => {
    billsTbody.innerHTML = ""
-   
+
    for (const bill of bills) {
-    const topRow = document.createElement("tr")
-    const billName = document.createElement("td")
-    billName.textContent = bill.name
-    topRow.appendChild(billName)
-    const billAmount = document.createElement("td")
-    billAmount.textContent = `$${bill.amountOwed.toFixed(2)}`
-    topRow.appendChild(billAmount)
-    billsTbody.appendChild(topRow)
+      const topRow = document.createElement("tr")
+      
+      const billName = document.createElement("td")
+      billName.textContent = bill.name
+      topRow.appendChild(billName)
+      
+      const billAmount = document.createElement("td")
+      billAmount.textContent = `$${bill.amountOwed.toFixed(2)}`
+      topRow.appendChild(billAmount)
+      
+      const billDue = document.createElement("td")
+      billDue.textContent = bill.dueDay
+      topRow.appendChild(billDue)
+
+      const billPaid = document.createElement("td")
+      const paidCheckbox = document.createElement("input")
+      paidCheckbox.type = "checkbox"
+      paidCheckbox.checked = bill.paid
+      paidCheckbox.addEventListener("change", () => {
+         console.log(bill.name)
+         console.log(paidCheckbox.checked)
+      })
+      billPaid.appendChild(paidCheckbox)
+      topRow.appendChild(billPaid)
+
+      billsTbody.appendChild(topRow)
    }
 }
 
 paycheckBtn.addEventListener("click", () => {
-    const checkAmount = Number(paycheckInput.value)
-    paycheckAmount = checkAmount
+   const checkAmount = Number(paycheckInput.value)
+   paycheckAmount = checkAmount
 
-    remainingAmnt.textContent = `Remaining: $${paycheckAmount.toFixed(2)}`
+   remainingAmnt.textContent = `Remaining: $${paycheckAmount.toFixed(2)}`
 })
 
 renderBills()
