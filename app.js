@@ -59,7 +59,7 @@ const updateSummary = () => {
       totalPaid += bill.amountOwed
    }
 
-   const remaining = paycheckAmount - (totalBills - totalPaid)
+   const remaining = paycheckAmount - totalPaid
    
    totalBillsAmnt.textContent = `Total Bills: $${totalBills.toFixed(2)}`
    totalPaidAmnt.textContent = `Total Paid: $${totalPaid.toFixed(2)}`
