@@ -32,8 +32,8 @@ const renderBills = () => {
       paidCheckbox.type = "checkbox"
       paidCheckbox.checked = bill.paid
       paidCheckbox.addEventListener("change", () => {
-         console.log(bill.name)
-         console.log(paidCheckbox.checked)
+         bill.paid = paidCheckbox.checked
+         updateSummary()
       })
       billPaid.appendChild(paidCheckbox)
       topRow.appendChild(billPaid)
@@ -46,7 +46,24 @@ paycheckBtn.addEventListener("click", () => {
    const checkAmount = Number(paycheckInput.value)
    paycheckAmount = checkAmount
 
-   remainingAmnt.textContent = `Remaining: $${paycheckAmount.toFixed(2)}`
+   updateSummary()
 })
+
+const updateSummary = () => {
+   let totalBills = 0
+   let totalPaid = 0
+      
+   for(const bill of bills) {
+      totalBills += bill.amountOwed
+    if (bill.paid === true) 
+      totalPaid += bill.amountOwed
+   }
+
+   const remaining = paycheckAmount - (totalBills - totalPaid)
+   
+   totalBillsAmnt.textContent = `Total Bills: $${totalBills.toFixed(2)}`
+   totalPaidAmnt.textContent = `Total Paid: $${totalPaid.toFixed(2)}`
+   remainingAmnt.textContent = `Remaining: $${remaining.toFixed(2)}`
+}
 
 renderBills()
