@@ -38,6 +38,18 @@ const renderBills = () => {
       billPaid.appendChild(paidCheckbox)
       topRow.appendChild(billPaid)
 
+      const paymentsLeft = document.createElement("td")
+      paymentsLeft.textContent = bill.paymentsRemaining
+      topRow.appendChild(paymentsLeft)
+
+      const paidSoFar = document.createElement("td")
+      const paidSoFarBox = document.createElement("input")
+      paidSoFarBox.type = "number"
+      paidSoFarBox.value = bill.paidSoFar
+      paidSoFar.appendChild(paidSoFarBox)
+      topRow.appendChild(paidSoFar)
+      
+    
       billsTbody.appendChild(topRow)
    }
 }
@@ -67,3 +79,4 @@ const updateSummary = () => {
 }
 
 renderBills()
+console.log(bills)
