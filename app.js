@@ -44,8 +44,12 @@ const renderBills = () => {
 
       const paidSoFar = document.createElement("td")
       const paidSoFarBox = document.createElement("input")
-      paidSoFarBox.type = "number"
-      paidSoFarBox.value = bill.paidSoFar
+      paidSoFarBox.addEventListener("change", () => {
+        paidSoFarBox.type = "number"
+        paidSoFarBox = Number(paidSoFarBox.value)
+        paidSoFarBox.value = bill.paidSoFar
+        updateSummary()
+      })
       paidSoFar.appendChild(paidSoFarBox)
       topRow.appendChild(paidSoFar)
       
@@ -67,8 +71,6 @@ const updateSummary = () => {
       
    for(const bill of bills) {
       totalBills += bill.amountOwed
-    if (bill.paid === true) 
-      totalPaid += bill.amountOwed
    }
 
    const remaining = paycheckAmount - totalPaid
@@ -79,4 +81,3 @@ const updateSummary = () => {
 }
 
 renderBills()
-console.log(bills)
