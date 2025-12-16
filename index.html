@@ -1,9 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
   <meta charset="UTF-8" />
   <title>Bills & Payday Control Panel</title>
 </head>
+
 <body>
   <h1>Bills & Payday Control Panel</h1>
 
@@ -17,8 +19,20 @@
     </label>
     <button id="set-paycheck">Set Paycheck</button>
 
+    <label>
+      Shared per check: $
+      <input type="number" id="shared-input" value="600" />
+    </label>
+
+    <label>
+      Savings per check: $
+      <input type="numer" id="savings-input" value="200" />
+    </label>
+
     <p id="total-bills">Total Bills: $0.00</p>
     <p id="total-paid">Total Paid: $0.00</p>
+    <p id="total-paid-shared">Shared Account: $0.00</p>
+    <p id="total-paid-savings">Savings Account: $0.00</p>
     <p id="remaining">Remaining: $0.00</p>
   </section>
 
@@ -62,12 +76,12 @@
     <table>
       <thead>
         <tr>
-          <th>Name</th>
+          <th>Paid</th>
+          <th>Bill Name</th>
           <th>Amount Due</th>
           <th>Due Date</th>
-          <th>Paid</th>
-          <th>Payments Remaining</th>
           <th>Amount Paid</th>
+          <th>Payments Remaining</th>
         </tr>
       </thead>
       <tbody id="bills-tbody">
@@ -79,4 +93,5 @@
   <script src="data.js"></script>
   <script src="app.js"></script>
 </body>
+
 </html>
