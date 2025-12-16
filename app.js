@@ -6,14 +6,34 @@ const totalBillsAmnt = document.querySelector("#total-bills")
 const totalPaidAmnt = document.querySelector("#total-paid")
 const remainingAmnt = document.querySelector("#remaining")
 const billsTbody = document.querySelector("#bills-tbody")
+const savingsAmnt = document.querySelector("#total-paid-savings")
+const sharedAmnt = document.querySelector("#total-paid-shared")
+const sharedInput = document.querySelector("#shared-input")
+const savingsInput = document.querySelector("#savings-input")
 
 let paycheckAmount = 0
+
+const updateAllLocationsUI = (shared, savings) => {
+   sharedAmnt.textContent = `Shared Account: $${shared.toFixed(2)}`
+   savingsAmnt.textContent = `Savings Account: $${savings.toFixed(2)}`
+}
 
 const renderBills = () => {
    billsTbody.innerHTML = ""
 
    for (const bill of bills) {
       const topRow = document.createElement("tr")
+
+      const billPaid = document.createElement("td")
+      const paidCheckbox = document.createElement("input")
+      paidCheckbox.type = "checkbox"
+      paidCheckbox.checked = bill.paid
+      paidCheckbox.addEventListener("change", () => {
+         bill.paid = paidCheckbox.checked
+         updateSummary()
+      })
+      billPaid.appendChild(paidCheckbox)
+      topRow.appendChild(billPaid)
       
       const billName = document.createElement("td")
       billName.textContent = bill.name
@@ -26,42 +46,34 @@ const renderBills = () => {
       const billDue = document.createElement("td")
       billDue.textContent = bill.dueDay
       topRow.appendChild(billDue)
-
-      const billPaid = document.createElement("td")
-      const paidCheckbox = document.createElement("input")
-      paidCheckbox.type = "checkbox"
-      paidCheckbox.checked = bill.paid
-      paidCheckbox.addEventListener("change", () => {
-         bill.paid = paidCheckbox.checked
-         updateSummary()
-      })
-      billPaid.appendChild(paidCheckbox)
-      topRow.appendChild(billPaid)
+      
+      const paidSoFar = document.createElement("td")
+      const paidSoFarBox = document.createElement("input")
+      paidSoFarBox.type = "number"
+      paidSoFarBox.value = bill.paidSoFar
+      paidSoFar.appendChild(paidSoFarBox)
+      topRow.appendChild(paidSoFar)
 
       const paymentsLeft = document.createElement("td")
       paymentsLeft.textContent = bill.paymentsRemaining
       topRow.appendChild(paymentsLeft)
-
-      const paidSoFar = document.createElement("td")
-      const paidSoFarBox = document.createElement("input")
-      paidSoFarBox.addEventListener("change", () => {
-        paidSoFarBox.type = "number"
-        paidSoFarBox = Number(paidSoFarBox.value)
-        paidSoFarBox.value = bill.paidSoFar
-        updateSummary()
-      })
-      paidSoFar.appendChild(paidSoFarBox)
-      topRow.appendChild(paidSoFar)
       
-    
       billsTbody.appendChild(topRow)
    }
 }
 
 paycheckBtn.addEventListener("click", () => {
    const checkAmount = Number(paycheckInput.value)
-   paycheckAmount = checkAmount
+   const shared = Number(sharedInput.value)
+   const savings = Number(savingsInput.value)
 
+   if (checkAmount <= 0) return
+   if (shared < 0 || savings < 0) return
+   if (checkAmount < shared + savings) return
+   
+   paycheckAmount = checkAmount - shared - savings
+
+   updateAllLocationsUI(shared, savings)
    updateSummary()
 })
 
@@ -71,6 +83,8 @@ const updateSummary = () => {
       
    for(const bill of bills) {
       totalBills += bill.amountOwed
+    if (bill.paid === true) 
+      totalPaid += bill.amountOwed
    }
 
    const remaining = paycheckAmount - totalPaid
