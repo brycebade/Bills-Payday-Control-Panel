@@ -1,9 +1,11 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="UTF-8" />
   <title>Bills & Payday Control Panel</title>
+  <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
@@ -26,7 +28,7 @@
 
     <label>
       Savings per check: $
-      <input type="numer" id="savings-input" value="200" />
+      <input type="number" id="savings-input" value="200" />
     </label>
 
     <p id="total-bills">Total Bills: $0.00</p>
@@ -34,6 +36,12 @@
     <p id="total-paid-shared">Shared Account: $0.00</p>
     <p id="total-paid-savings">Savings Account: $0.00</p>
     <p id="remaining">Remaining: $0.00</p>
+
+    <label>
+        Bills Due Between: 
+        <input type="date" id="bills-start">
+        <input type="date" id="bills-end">
+    </label>
   </section>
 
   <!-- Add Bill Form -->
