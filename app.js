@@ -10,6 +10,8 @@ const savingsAmnt = document.querySelector("#total-paid-savings")
 const sharedAmnt = document.querySelector("#total-paid-shared")
 const sharedInput = document.querySelector("#shared-input")
 const savingsInput = document.querySelector("#savings-input")
+const billsStartInput = document.querySelector("#bills-start")
+const billsEndInput = document.querySelector("#bills-end")
 
 let paycheckAmount = 0
 
@@ -66,6 +68,8 @@ paycheckBtn.addEventListener("click", () => {
    const checkAmount = Number(paycheckInput.value)
    const shared = Number(sharedInput.value)
    const savings = Number(savingsInput.value)
+   const startDate = Date(billsStartInput.value)
+   const endDate = Date(billsEndInput.value)
 
    if (checkAmount <= 0) return
    if (shared < 0 || savings < 0) return
