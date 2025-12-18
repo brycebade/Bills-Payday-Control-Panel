@@ -12,6 +12,9 @@ const billsStartInput = document.querySelector("#bills-start")
 const billsEndInput = document.querySelector("#bills-end")
 
 let paycheckAmount = 0
+let payWindowStartDay = null
+let payWIndowEndDay = null
+let payWindowCrossesMonth = null
 
 const updateAllLocationsUI = (shared, savings) => {
    sharedAmnt.textContent = `Shared Account: $${shared.toFixed(2)}`
@@ -81,35 +84,53 @@ paycheckBtn.addEventListener("click", () => {
    if (checkAmount < shared + savings) return
    if(startDateValue === "" || endDateValue === "") return
 
-   // convert date strings into date objects
-   const startDate = new Date(startDateValue)
-   const endDate = new Date(endDateValue)
+   // turn YYYY-MM-DD into just the day numbers
+   const startDate = startDateValue.split("-")
+   const endDate = endDateValue.split("-")
 
-   // pull out day and month numbers
-   const startDay = startDate.getDate()
-   const endDay = endDate.getDate()
-   const startMonth = startDate.getMonth()
-   const endMonth = endDate.getMonth()
+   const startDay = Number(startDate[2])
+   const endDay = Number(endDate[2])
 
    // determine if the range crosses into a new month
-   const crossesMonth = startMonth !== endMonth
+   const crossesMonth = startDay > endDay
 
-   // calculate available paycheck after allocations
    paycheckAmount = checkAmount - shared - savings
+   payWindowStartDay = startDay
+   payWindowEndDay = endDay
+   payWindowCrossesMonth = crossesMonth
 
    // update UI
    updateAllLocationsUI(shared, savings)
    updateSummary()
 })
 
+const isBillInCurrentWindow = (bill) => {
+    if (payWindowStartDay === null || payWindowEndDay === null) {
+        return true
+    }
+
+    const due = bill.dueDay
+
+    if (!payWindowCrossesMonth) {
+        return due >= payWindowStartDay && due <= payWindowEndDay
+    }
+    return due >= payWindowStartDay || due <= payWindowEndDay
+}
+
 const updateSummary = () => {
    let totalBills = 0
    let totalPaid = 0
 
    for(const bill of bills) {
+      if (!isBillInCurrentWindow(bill)) {
+        continue
+      }
+
       totalBills += bill.amountOwed
-    if (bill.paid === true) 
+
+    if (bill.paid === true) {
       totalPaid += bill.amountOwed
+    }
    }
 
    const remaining = paycheckAmount - totalPaid
