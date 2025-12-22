@@ -1,4 +1,18 @@
-body {
+* {
     background-color: black;
     color: white;
+    text-align: center;
+}
+
+th, td, tr {
+    border: 1px solid gray;
+    border-collapse: collapse;
+}
+
+th, td {
+    padding: 8px;
+}
+
+input {
+    border: 1px solid gray;
 }
