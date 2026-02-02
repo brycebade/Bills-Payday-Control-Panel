@@ -4,12 +4,12 @@
 
 <head>
   <meta charset="UTF-8" />
-  <title>Bills & Payday Control Panel</title>
+  <title>Bills Tracker</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 
 <body>
-  <h1>Bills & Payday Control Panel</h1>
+  <h1>Bills Tracker</h1>
 
   <!-- Paycheck / Summary -->
   <section id="summary">
@@ -42,39 +42,6 @@
         <input type="date" id="bills-start">
         <input type="date" id="bills-end">
     </label>
-  </section>
-
-  <!-- Add Bill Form -->
-  <section id="add-bill">
-    <h2>Add a Bill</h2>
-
-    <label>
-      Name:
-      <input type="text" id="bill-name" />
-    </label>
-
-    <label>
-      Amount:
-      <input type="number" id="bill-amount" />
-    </label>
-
-    <label>
-      Due Date:
-      <input type="date" id="bill-due" />
-    </label>
-
-    <label>
-      Category:
-      <select id="bill-category">
-        <option value="Utilities">Utilities</option>
-        <option value="Debt">Debt</option>
-        <option value="Subscriptions">Subscriptions</option>
-        <option value="Other">Other</option>
-      </select>
-    </label>
-
-    <button id="add-bill-btn">Add Bill</button>
-    <p id="bill-error" class="error"></p>
   </section>
 
   <!-- Bills Table -->
