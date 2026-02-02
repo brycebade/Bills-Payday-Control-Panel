@@ -16,3 +16,9 @@ th, td {
 input {
     border: 1px solid gray;
 }
+
+/* phones */
+
+	@media (max-width: 768px) {
+        
+    }
