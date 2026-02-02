@@ -122,10 +122,7 @@ const updateSummary = () => {
    let totalPaid = 0
 
    for(const bill of bills) {
-      if (!isBillInCurrentWindow(bill)) {
-        continue
-      }
-
+      
       totalBills += bill.amountOwed
 
     if (bill.paid === true) {
