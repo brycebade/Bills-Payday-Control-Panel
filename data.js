@@ -32,10 +32,10 @@ const bills = [
   },
   {
     name: "Home Depot",
-    amountOwed: 48.00,
+    amountOwed: 50.00,
     dueDay: 9,
     paid: false,
-    paymentsRemaining: 5,
+    paymentsRemaining: 3,
     paidSoFar: 0
   },
   {
@@ -97,12 +97,12 @@ const bills = [
     amountOwed: 120.00,
     dueDay: 15,
     paid: false,
-    paymentsRemaining: 5,
+    paymentsRemaining: 4,
     paidSoFar: 0
   },
   {
     name: "Socket",
-    amountOwed: 75.00,
+    amountOwed: 80.00,
     dueDay: 20,
     paid: false,
     paidSoFar: 0
